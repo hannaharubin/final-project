@@ -1,6 +1,10 @@
 # 6/10/25 Hannah Rubin
 import random
 import uvage
+
+game_over=False
+score=0
+
 image_number=0
 run_image=uvage.load_sprite_sheet("run.png")
 fly_image=uvage.load_sprite_sheet("fly.png")
@@ -21,3 +25,4 @@ def tick():
     player_icon.image=run_image
     camera.draw(player_icon)
 
+uvage.timer_with_uvage_process(30,tick)
