@@ -35,7 +35,6 @@ def tick():
             player_vy = -10
             jump_count += 1
             jumping = True
-            jump_count = 0
 
         player_vy += gravity
         player_icon.y += player_vy
@@ -59,6 +58,9 @@ def tick():
         if obstacle.x < -50:
             obstacle.x = 850
             score += 1
+            if score %5==0:
+                obstacle_speed+=1
+                obstacle_speed=min(obstacle_speed,15)
 
         # player_icon".touches(obstacle)" is important & the only way i could find to check for collision
         if player_icon.touches(obstacle):
