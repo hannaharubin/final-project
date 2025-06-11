@@ -71,8 +71,8 @@ def tick():
         camera.draw(uvage.from_text(400, 300, "Game Over", 60, "red"))
 
     camera.display()
-
 uvage.timer_loop(30, tick)
+
 =======
 
 Hey everyone this is juliaaaaa
