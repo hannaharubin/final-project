@@ -35,7 +35,6 @@ def tick():
             player_vy = -10
             jump_count += 1
             jumping = True
-            jump_count = 0
 
         player_vy += gravity
         player_icon.y += player_vy
@@ -81,7 +80,23 @@ def tick():
     else:
         camera.draw(uvage.from_text(400, 300, "Game Over", 60, "red"))
         camera.draw(uvage.from_text(400, 360, f"Final Score: {score}", 40, "black"))
+        camera.draw(uvage.from_text(400, 420, "Press SPACE to restart", 30, "black"))
+        if uvage.is_pressing("space"):
+            reset_game()
 
     camera.display()
+
+def reset_game():
+    global game_over, score, lives, player_icon, player_vy, jumping, jump_count, obstacle, obstacle_speed
+    game_over = False
+    score = 0
+    lives = 3
+    player_icon = uvage.from_image(100, 500, run_image)
+    player_vy = 0
+    jumping = False
+    jump_count = 0
+    obstacle = uvage.from_image(900, 500, obstacle_image)
+    obstacle.scale_by(0.3)
+    obstacle_speed = 5
 
 uvage.timer_loop(30, tick)
