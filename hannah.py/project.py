@@ -35,6 +35,7 @@ def tick():
             player_vy = -10
             jump_count += 1
             jumping = True
+            jump_count = 0
 
         player_vy += gravity
         player_icon.y += player_vy
