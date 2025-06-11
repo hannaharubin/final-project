@@ -96,7 +96,7 @@ def reset_game():
     jumping = False
     jump_count = 0
     obstacle = uvage.from_image(900, 500, obstacle_image)
-    obstacle.scale_by(0.3)
+    obstacle.scale_by(0.3) # reduce size if needed
     obstacle_speed = 5
 
 uvage.timer_loop(30, tick)
