@@ -3,6 +3,7 @@ import random
 
 camera = uvage.Camera(800, 550)
 game_over = False
+you_win = False
 score = 0
 
 # Images
@@ -39,7 +40,7 @@ bg2.scale_by(.431)
 ground_width = bg1.width
 
 def tick():
-    global game_over, score
+    global game_over, score, you_win
     global jumping, player_icon, gravity
     global scroll_x, scroll_speed
     global bg1, bg2
@@ -53,7 +54,7 @@ def tick():
     bg2.x = (3*ground_width)//2 - scroll_x
 
 
-    if not game_over:
+    if not game_over and not you_win:
         player_icon.yspeed += gravity # The += 1 represents gravity adding downwards speed every tick; positive y means downward direction
         frame_count+=1
 
@@ -66,8 +67,7 @@ def tick():
             player_icon.yspeed = 0 # This stops us from falling through the floor
             if uvage.is_pressing("up arrow"): # Check if we should jump
                 player_icon.yspeed = -25
-            
-        
+
         if player_icon.yspeed < 0:
             player_icon.image = fly_image
         else:
@@ -75,7 +75,9 @@ def tick():
 
         player_icon.move_speed() # THIS IS REALLY IMPORTANT, or the walker won't move based on its speed
 
-        
+        if score>=10:
+            you_win = True
+
       # Move obstacle
         obstacle.x -= obstacle_speed
         if obstacle.x < -50:
@@ -84,9 +86,9 @@ def tick():
      
 
       # player_icon".touches(obstacle)" is important & the only way i could find to check for collision
-        if player_icon.touches(obstacle):
+        if player_icon.touches(obstacle) and you_win==False:
             game_over = True
-    
+        
 
         # Draw game elements
         camera.draw(bg1)
@@ -94,9 +96,16 @@ def tick():
         camera.draw(obstacle)
         camera.draw(player_icon)
         camera.draw(uvage.from_text(80, 50, f"Score: {score}", 30, "black"))
-    else:
+    if game_over==True:
         camera.draw(uvage.from_text(400, 300, "Game Over", 60, "red"))
+    elif you_win:
+        camera.clear("white")
+        camera.draw(bg1)
+        camera.draw(bg2)
+        camera.draw(uvage.from_text(400, 300, "You Win!", 60, "green"))
+        camera.draw(uvage.from_text(400, 360, f"Final Score: {score}", 40, "black")) 
 
     camera.display()
+
 
 uvage.timer_loop(30, tick)
