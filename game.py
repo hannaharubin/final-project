@@ -66,6 +66,12 @@ def tick():
             player_icon.yspeed = 0 # This stops us from falling through the floor
             if uvage.is_pressing("up arrow"): # Check if we should jump
                 player_icon.yspeed = -25
+            
+        
+        if player_icon.yspeed < 0:
+            player_icon.image = fly_image
+        else:
+            player_icon.image = run_image
 
         player_icon.move_speed() # THIS IS REALLY IMPORTANT, or the walker won't move based on its speed
 
