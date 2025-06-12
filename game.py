@@ -9,7 +9,8 @@ score = 0
 run_image = "run.png"
 fly_image = "fly.png"
 ground_image = "desert4.jpg"
-cactus_image= "cactus.png"
+obstacle_image= "cactus.png"
+
 
 # Player
 player_icon = uvage.from_image(150, 375, run_image)
@@ -19,7 +20,10 @@ jumping = False
 # Obstacles
 obstacles = []
 frame_count = 0
+obstacle_speed = 5
 
+obstacle = uvage.from_image(800, 410, "cactus.png")
+obstacle.scale_by(0.3)
 # Ground
 scroll_speed = 5
 speed_increase_timer = 0
@@ -52,31 +56,37 @@ def tick():
     if not game_over:
         player_icon.yspeed += gravity # The += 1 represents gravity adding downwards speed every tick; positive y means downward direction
         frame_count+=1
+
         if speed_increase_timer % 600 == 0:
           scroll_speed += 0.05
           if scroll_speed > 20:
             scroll_speed = 20
-      #  if frame_count % random.randint(60, 120) == 0:
-      #      new_obstacle = uvage.from_image(850, 400,"" )
+      
         if player_icon.y == 375:
             player_icon.yspeed = 0 # This stops us from falling through the floor
             if uvage.is_pressing("up arrow"): # Check if we should jump
                 player_icon.yspeed = - 15
+
         player_icon.move_speed() # THIS IS REALLY IMPORTANT, or the walker won't move based on its speed
-    
+
+        
       # Move obstacle
-      #  obstacle.x -= obstacle_speed
-      #  if obstacle.x < -50:
-      #      obstacle.x = 850
-      #      score += 1
+        obstacle.x -= obstacle_speed
+        if obstacle.x < -50:
+            obstacle.x = 850
+            score += 1
+     
 
       # player_icon".touches(obstacle)" is important & the only way i could find to check for collision
-      #   if player_icon.touches(obstacle):
-      #      game_over = True
+        if player_icon.touches(obstacle):
+            game_over = True
+    
 
         # Draw game elements
         camera.draw(bg1)
         camera.draw(bg2)
+        camera.draw(obstacle)
+        camera.draw(uvage.from_text(80, 50, f"Score: {score}", 30, "black"))
         camera.draw(player_icon)
         camera.draw(uvage.from_text(80, 50, "Score: {score}", 30, "black"))
     else:
