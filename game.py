@@ -62,10 +62,10 @@ def tick():
           if scroll_speed > 20:
             scroll_speed = 20
       
-        if player_icon.y == 375:
+        if player_icon.y == 375: #player jump height
             player_icon.yspeed = 0 # This stops us from falling through the floor
             if uvage.is_pressing("up arrow"): # Check if we should jump
-                player_icon.yspeed = - 15
+                player_icon.yspeed = -25
 
         player_icon.move_speed() # THIS IS REALLY IMPORTANT, or the walker won't move based on its speed
 
@@ -87,7 +87,7 @@ def tick():
         camera.draw(bg2)
         camera.draw(obstacle)
         camera.draw(player_icon)
-        camera.draw(uvage.from_text(80, 50, "Score: {score}", 30, "black"))
+        camera.draw(uvage.from_text(80, 50, f"Score: {score}", 30, "black"))
     else:
         camera.draw(uvage.from_text(400, 300, "Game Over", 60, "red"))
 
