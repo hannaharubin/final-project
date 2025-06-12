@@ -22,7 +22,7 @@ obstacles = []
 frame_count = 0
 obstacle_speed = 5
 
-obstacle = uvage.from_image(800, 410, "cactus.png")
+obstacle = uvage.from_image(800, 390, "cactus.png")
 obstacle.scale_by(0.3)
 # Ground
 scroll_speed = 5
@@ -86,7 +86,6 @@ def tick():
         camera.draw(bg1)
         camera.draw(bg2)
         camera.draw(obstacle)
-        camera.draw(uvage.from_text(80, 50, f"Score: {score}", 30, "black"))
         camera.draw(player_icon)
         camera.draw(uvage.from_text(80, 50, "Score: {score}", 30, "black"))
     else:
