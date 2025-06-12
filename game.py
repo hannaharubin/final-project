@@ -22,6 +22,7 @@ frame_count = 0
 
 # Ground
 scroll_speed = 5
+speed_increase_timer = 0
 scroll_x = 0
 bg1 = uvage.from_image(400, 275, "desert4.jpg")
 bg1.scale_by(.431)
@@ -51,6 +52,10 @@ def tick():
     if not game_over:
         player_icon.yspeed += gravity # The += 1 represents gravity adding downwards speed every tick; positive y means downward direction
         frame_count+=1
+        if speed_increase_timer % 600 == 0:
+          scroll_speed += 0.05
+          if scroll_speed > 20:
+            scroll_speed = 20
       #  if frame_count % random.randint(60, 120) == 0:
       #      new_obstacle = uvage.from_image(850, 400,"" )
         if player_icon.y == 375:
