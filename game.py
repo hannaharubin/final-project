@@ -9,6 +9,7 @@ score = 0
 run_image = "run.png"
 fly_image = "fly.png"
 ground_image = "desert4.jpg"
+cactus_image= "cactus.png"
 
 # Player
 player_icon = uvage.from_image(150, 375, run_image)
